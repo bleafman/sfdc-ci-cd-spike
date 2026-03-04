@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Custom picklist field on Opportunity.
+  Tracks how the deal originated — useful for marketing attribution and
+  understanding which channels produce revenue.
+
+  Key concepts:
+  - "type: Picklist" means this is a dropdown with predefined values
+  - "valueSet" defines the allowed options inline (vs. referencing a global value set)
+  - "restricted: true" means users can't add new values on the fly — only these four are allowed
+-->
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Deal_Source__c</fullName>
+    <label>Deal Source</label>
+    <description>How this opportunity originated. Used for pipeline attribution reporting.</description>
+    <type>Picklist</type>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Inbound</fullName>
+                <default>false</default>
+                <label>Inbound</label>
+            </value>
+            <value>
+                <fullName>Outbound</fullName>
+                <default>false</default>
+                <label>Outbound</label>
+            </value>
+            <value>
+                <fullName>Partner</fullName>
+                <default>false</default>
+                <label>Partner</label>
+            </value>
+            <value>
+                <fullName>Referral</fullName>
+                <default>false</default>
+                <label>Referral</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

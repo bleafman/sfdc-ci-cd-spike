@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Custom text field on Opportunity.
+  Captures the next concrete action for this deal. This is enforced by a
+  validation rule — Opportunities cannot move to "Proposal" stage or beyond
+  without this field populated.
+
+  Key concepts:
+  - "type: Text" with "length: 255" = single-line text input, max 255 chars
+  - This field is not required at the schema level (required=false) because
+    the validation rule handles conditional requirement logic
+-->
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Next_Step__c</fullName>
+    <label>Next Step</label>
+    <description>The next concrete action for this deal. Required when moving to Proposal stage or beyond.</description>
+    <type>Text</type>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+</CustomField>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Validation Rule on Opportunity
+  ==============================
+  Prevents Opportunities from moving to "Proposal" stage (or beyond) without
+  a Next Step defined. This enforces sales process discipline — you can't
+  advance a deal without documenting what happens next.
+
+  Key concepts for non-Salesforce developers:
+  - "errorConditionFormula" is a Boolean formula. When it evaluates to TRUE,
+    the save is BLOCKED and the error message is shown. Think of it as:
+    "if this condition is true, the record is INVALID."
+  - ISBLANK() checks if a field is empty/null
+  - ISPICKVAL() compares a picklist field to a specific value
+  - The NOT(OR(...)) pattern checks that the stage is NOT one of the early stages,
+    meaning it IS an advanced stage (Proposal, Negotiation, Closed Won/Lost)
+  - "errorDisplayField" controls where the error message appears in the UI —
+    we show it next to the Next_Step__c field since that's what needs to be filled in
+-->
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Require_Next_Step_For_Proposal</fullName>
+    <active>true</active>
+    <description>Opportunities at Proposal stage or beyond must have a Next Step defined. Enforces sales process discipline.</description>
+    <errorConditionFormula>AND(
+    ISBLANK(Next_Step__c),
+    NOT(
+        OR(
+            ISPICKVAL(StageName, &quot;Prospecting&quot;),
+            ISPICKVAL(StageName, &quot;Discovery&quot;)
+        )
+    )
+)</errorConditionFormula>
+    <errorDisplayField>Next_Step__c</errorDisplayField>
+    <errorMessage>Next Step is required when the Opportunity is at Proposal stage or beyond. What&apos;s the next concrete action for this deal?</errorMessage>
+</ValidationRule>

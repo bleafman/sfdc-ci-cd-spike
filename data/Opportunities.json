@@ -1,0 +1,86 @@
+{
+  "records": [
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OppMeridianPlatform"
+      },
+      "AccountId": "@AcctMeridian",
+      "Name": "Meridian Financial - Platform License",
+      "StageName": "Closed Won",
+      "CloseDate": "2026-01-15",
+      "Amount": 285000,
+      "Deal_Source__c": "Inbound",
+      "Expected_Contract_Value__c": 855000,
+      "Next_Step__c": "Completed — contract signed. Kickoff scheduled."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OppApexRollout"
+      },
+      "AccountId": "@AcctApex",
+      "Name": "Apex Manufacturing - Enterprise Rollout",
+      "StageName": "Negotiation",
+      "CloseDate": "2026-03-20",
+      "Amount": 520000,
+      "Deal_Source__c": "Outbound",
+      "Expected_Contract_Value__c": 1560000,
+      "Next_Step__c": "Legal review of MSA. Procurement meeting Friday."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OppNimbusSubscription"
+      },
+      "AccountId": "@AcctNimbus",
+      "Name": "Nimbus Analytics - Annual Subscription",
+      "StageName": "Proposal",
+      "CloseDate": "2026-04-01",
+      "Amount": 72000,
+      "Deal_Source__c": "Partner",
+      "Expected_Contract_Value__c": 216000,
+      "Next_Step__c": "Present pricing to CEO. Send ROI analysis."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OppVeloxStartup"
+      },
+      "AccountId": "@AcctVelox",
+      "Name": "Velox AI - Startup Program License",
+      "StageName": "Discovery",
+      "CloseDate": "2026-05-15",
+      "Amount": 36000,
+      "Deal_Source__c": "Inbound",
+      "Expected_Contract_Value__c": 108000
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OppTerraVerdeMonitoring"
+      },
+      "AccountId": "@AcctTerraVerde",
+      "Name": "TerraVerde - Asset Monitoring System",
+      "StageName": "Proposal",
+      "CloseDate": "2026-04-10",
+      "Amount": 210000,
+      "Deal_Source__c": "Partner",
+      "Expected_Contract_Value__c": 630000,
+      "Next_Step__c": "Present revised proposal to VP of Engineering."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OppApexQuality"
+      },
+      "AccountId": "@AcctApex",
+      "Name": "Apex Manufacturing - Quality Control Module",
+      "StageName": "Prospecting",
+      "CloseDate": "2026-06-15",
+      "Amount": 175000,
+      "Deal_Source__c": "Referral",
+      "Expected_Contract_Value__c": 525000
+    }
+  ]
+}

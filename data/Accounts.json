@@ -1,0 +1,64 @@
+{
+  "records": [
+    {
+      "attributes": {
+        "type": "Account",
+        "referenceId": "AcctMeridian"
+      },
+      "Name": "Meridian Financial Group",
+      "Industry": "Financial Services",
+      "NumberOfEmployees": 4200,
+      "BillingCity": "New York",
+      "BillingState": "NY",
+      "Description": "Full-service financial advisory firm. Fortune 500."
+    },
+    {
+      "attributes": {
+        "type": "Account",
+        "referenceId": "AcctApex"
+      },
+      "Name": "Apex Manufacturing Corp",
+      "Industry": "Manufacturing",
+      "NumberOfEmployees": 8500,
+      "BillingCity": "Detroit",
+      "BillingState": "MI",
+      "Description": "Industrial equipment manufacturer with global distribution."
+    },
+    {
+      "attributes": {
+        "type": "Account",
+        "referenceId": "AcctNimbus"
+      },
+      "Name": "Nimbus Analytics",
+      "Industry": "Technology",
+      "NumberOfEmployees": 350,
+      "BillingCity": "Austin",
+      "BillingState": "TX",
+      "Description": "Business intelligence and data analytics platform."
+    },
+    {
+      "attributes": {
+        "type": "Account",
+        "referenceId": "AcctVelox"
+      },
+      "Name": "Velox AI",
+      "Industry": "Technology",
+      "NumberOfEmployees": 45,
+      "BillingCity": "San Francisco",
+      "BillingState": "CA",
+      "Description": "Series B startup. ML-powered document processing."
+    },
+    {
+      "attributes": {
+        "type": "Account",
+        "referenceId": "AcctTerraVerde"
+      },
+      "Name": "TerraVerde Energy",
+      "Industry": "Energy",
+      "NumberOfEmployees": 3100,
+      "BillingCity": "Houston",
+      "BillingState": "TX",
+      "Description": "Renewable energy provider. Wind and solar installations."
+    }
+  ]
+}

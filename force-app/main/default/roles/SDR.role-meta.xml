@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Role: SDR — Sales Development Representative (bottom of the sales hierarchy)
+  ============================================================================
+  Reports to Sales Manager. SDRs are the front line — they qualify leads and
+  hand off to Account Executives. They can only see their own records by default
+  (unless org-wide sharing settings grant broader access).
+-->
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SDR</fullName>
+    <label>SDR</label>
+    <parentRole>Sales_Manager</parentRole>
+    <caseAccessLevel>Read</caseAccessLevel>
+    <contactAccessLevel>ReadWrite</contactAccessLevel>
+    <description>Sales Development Representative. Front-line role focused on lead qualification. Reports to Sales Manager.</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <opportunityAccessLevel>Read</opportunityAccessLevel>
+</Role>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Role: VP of Sales (top of the sales hierarchy)
+  ===============================================
+  Salesforce roles control record visibility via the "role hierarchy."
+  A user in a higher role can see all records owned by users in roles below them.
+
+  This means the VP of Sales can see every Account, Contact, Opportunity, etc.
+  owned by Sales Managers and SDRs — without needing explicit sharing rules.
+
+  Key concepts:
+  - "parentRole" is empty because this is the top of our hierarchy
+  - "caseAccessLevel", "contactAccessLevel", "opportunityAccessLevel" control
+    the DEFAULT access level granted through the hierarchy:
+      ReadWrite = can view and edit
+      Read      = can view only
+      None      = no access through hierarchy (other sharing rules may still grant access)
+-->
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VP_Sales</fullName>
+    <label>VP of Sales</label>
+    <caseAccessLevel>ReadWrite</caseAccessLevel>
+    <contactAccessLevel>ReadWrite</contactAccessLevel>
+    <description>Top of the sales role hierarchy. Can see all records owned by Sales Managers and SDRs below.</description>
+    <mayForecastManagerShare>true</mayForecastManagerShare>
+    <opportunityAccessLevel>ReadWrite</opportunityAccessLevel>
+</Role>

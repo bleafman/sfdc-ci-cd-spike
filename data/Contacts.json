@@ -1,0 +1,103 @@
+{
+  "records": [
+    {
+      "attributes": {
+        "type": "Contact",
+        "referenceId": "ContDChen"
+      },
+      "AccountId": "@AcctMeridian",
+      "FirstName": "David",
+      "LastName": "Chen",
+      "Title": "Chief Financial Officer",
+      "Email": "dchen@meridianfg.example.com"
+    },
+    {
+      "attributes": {
+        "type": "Contact",
+        "referenceId": "ContSOkafor"
+      },
+      "AccountId": "@AcctMeridian",
+      "FirstName": "Sarah",
+      "LastName": "Okafor",
+      "Title": "VP of Operations",
+      "Email": "sokafor@meridianfg.example.com"
+    },
+    {
+      "attributes": {
+        "type": "Contact",
+        "referenceId": "ContLJohansson"
+      },
+      "AccountId": "@AcctApex",
+      "FirstName": "Linda",
+      "LastName": "Johansson",
+      "Title": "CEO",
+      "Email": "ljohansson@apexmfg.example.com"
+    },
+    {
+      "attributes": {
+        "type": "Contact",
+        "referenceId": "ContMThompson"
+      },
+      "AccountId": "@AcctApex",
+      "FirstName": "Marcus",
+      "LastName": "Thompson",
+      "Title": "VP of Sales",
+      "Email": "mthompson@apexmfg.example.com"
+    },
+    {
+      "attributes": {
+        "type": "Contact",
+        "referenceId": "ContAPetrov"
+      },
+      "AccountId": "@AcctNimbus",
+      "FirstName": "Alex",
+      "LastName": "Petrov",
+      "Title": "CEO",
+      "Email": "apetrov@nimbusanalytics.example.com"
+    },
+    {
+      "attributes": {
+        "type": "Contact",
+        "referenceId": "ContAKapoor"
+      },
+      "AccountId": "@AcctVelox",
+      "FirstName": "Arjun",
+      "LastName": "Kapoor",
+      "Title": "Co-founder & CEO",
+      "Email": "akapoor@veloxai.example.com"
+    },
+    {
+      "attributes": {
+        "type": "Contact",
+        "referenceId": "ContEZhang"
+      },
+      "AccountId": "@AcctVelox",
+      "FirstName": "Emily",
+      "LastName": "Zhang",
+      "Title": "Co-founder & CTO",
+      "Email": "ezhang@veloxai.example.com"
+    },
+    {
+      "attributes": {
+        "type": "Contact",
+        "referenceId": "ContCMendez"
+      },
+      "AccountId": "@AcctTerraVerde",
+      "FirstName": "Carlos",
+      "LastName": "Mendez",
+      "Title": "VP of Business Development",
+      "Email": "cmendez@terraverde.example.com"
+    },
+    {
+      "attributes": {
+        "type": "Contact",
+        "referenceId": "ContRFoster"
+      },
+      "AccountId": "@AcctTerraVerde",
+      "FirstName": "Rachel",
+      "LastName": "Foster",
+      "Title": "Director of Procurement",
+      "Email": "rfoster@terraverde.example.com"
+    }
+  ]
+}
