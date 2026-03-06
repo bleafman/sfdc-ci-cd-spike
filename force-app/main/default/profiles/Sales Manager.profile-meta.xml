@@ -1,34 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Profile: Sales Manager
-  ======================
-  Salesforce profiles control what a user can DO — which objects they can access,
-  which fields they can see/edit, and which app features are available.
-
-  This is separate from roles (which control which RECORDS they can see).
-  Think of it as: Profile = permissions, Role = data visibility.
-
-  Sales Manager permissions:
-  - Read/Write on Accounts, Contacts, Opportunities (full deal management)
-  - Read/Write on Leads (can work leads if needed)
-  - Can view reports and dashboards
-  - Can access our custom Opportunity fields (Deal Source, Expected Contract Value, Next Step)
-
-  Key concepts:
-  - "fieldPermissions" control field-level security (FLS) — even if a user has
-    object-level access, they can't see a field unless FLS grants it
-  - "objectPermissions" control CRUD access at the object level
-  - "readable: true" = can see the field, "editable: true" = can modify it
-  - Field names use "Object.FieldName" format (e.g., "Opportunity.Deal_Source__c")
--->
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Sales Manager</fullName>
-    <label>Sales Manager</label>
-    <description>Profile for sales managers. Full read/write access to core sales objects (Accounts, Contacts, Opportunities, Leads). Can manage deals end-to-end.</description>
     <custom>true</custom>
     <userLicense>Salesforce</userLicense>
-
-    <!-- Object-level access: what CRUD operations are allowed on each object -->
     <objectPermissions>
         <object>Account</object>
         <allowCreate>true</allowCreate>
@@ -65,8 +38,6 @@
         <modifyAllRecords>false</modifyAllRecords>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-
-    <!-- Field-level security for our custom Opportunity fields -->
     <fieldPermissions>
         <field>Opportunity.Deal_Source__c</field>
         <readable>true</readable>

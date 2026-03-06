@@ -2,14 +2,16 @@
 #
 # Round-Trip Deployment Test (Scenario 5)
 # =======================================
-# This script proves the core premise of the POC: can we express an entire
+# This script proves the core premise of the spike: can we express an entire
 # Salesforce org's configuration as code and reconstitute it from scratch?
 #
 # What it does:
 #   1. Creates a brand-new scratch org (an ephemeral, disposable Salesforce instance)
-#   2. Deploys ALL metadata from this Git repo to the new org
-#   3. Optionally loads seed data
-#   4. Verifies everything landed correctly
+#   2. Creates roles via Apex (role metadata deploys are brittle — see LEARNINGS.md)
+#   3. Deploys ALL metadata from this Git repo to the new org
+#   4. Grants FLS to System Administrator (deploy doesn't do this automatically)
+#   5. Optionally loads seed data
+#   6. Verifies everything landed correctly
 #
 # Prerequisites:
 #   - Salesforce CLI installed (sf version)
@@ -20,13 +22,6 @@
 #   ./scripts/setup.sh                    # Create org + deploy metadata only
 #   ./scripts/setup.sh --with-seed-data   # Also load sample data after deploy
 #   ./scripts/setup.sh --scratch-alias X  # Use a custom alias (default: poc-test)
-#
-# Flags explained:
-#   --set-default          Makes this the default org for subsequent sf commands
-#   --definition-file      Points to the scratch org config (edition, features, etc.)
-#   --duration-days        How many days before the scratch org auto-expires (max 30)
-#   --target-org           Which org to deploy to (uses the alias we just created)
-#   --wait                 How many minutes to wait for the deploy to finish
 
 set -euo pipefail
 
@@ -63,9 +58,6 @@ echo ""
 # Step 1: Create a fresh scratch org
 # ---------------------------------------------------------------------------
 echo ">>> Step 1: Creating scratch org '$SCRATCH_ALIAS'..."
-echo "    This creates a brand-new, empty Salesforce org based on the"
-echo "    definition in config/project-scratch-def.json."
-echo ""
 
 sf org create scratch \
     --set-default \
@@ -75,40 +67,61 @@ sf org create scratch \
     --wait 10
 
 echo ""
-echo "    Scratch org created successfully."
+echo "    Scratch org created."
 echo ""
 
 # ---------------------------------------------------------------------------
-# Step 2: Deploy all metadata from the repo
+# Step 2: Create roles via Apex
 # ---------------------------------------------------------------------------
-echo ">>> Step 2: Deploying metadata to '$SCRATCH_ALIAS'..."
-echo "    This pushes all the XML metadata files from force-app/ to the org."
-echo "    It's the equivalent of 'configuring' the org via code."
+# Role metadata deployment is brittle (element ordering, access level values,
+# description length limits, unhelpful error messages). Creating via Apex is
+# more reliable. See LEARNINGS.md for details.
+echo ">>> Step 2: Creating roles via Apex..."
+
+sf apex run \
+    --file scripts/apex/create-roles.apex \
+    --target-org "$SCRATCH_ALIAS"
+
+echo ""
+echo "    Roles created."
 echo ""
 
-# 'sf project deploy start' is the modern replacement for the older
-# 'sfdx force:source:push'. It sends metadata to the org and waits
-# for the deployment to complete.
+# ---------------------------------------------------------------------------
+# Step 3: Deploy all metadata from the repo
+# ---------------------------------------------------------------------------
+echo ">>> Step 3: Deploying metadata to '$SCRATCH_ALIAS'..."
+
 sf project deploy start \
     --target-org "$SCRATCH_ALIAS" \
+    --ignore-conflicts \
     --wait 10
 
 echo ""
-echo "    Metadata deployed successfully."
+echo "    Metadata deployed."
 echo ""
 
 # ---------------------------------------------------------------------------
-# Step 3: (Optional) Load seed data
+# Step 4: Grant FLS to System Administrator
+# ---------------------------------------------------------------------------
+# Deploying custom fields does NOT automatically grant field-level security
+# to the System Administrator profile. Without this step, Apex scripts
+# (including seed data) can't access the custom fields.
+echo ">>> Step 4: Granting FLS to System Administrator..."
+
+sf apex run \
+    --file scripts/apex/grant-admin-fls.apex \
+    --target-org "$SCRATCH_ALIAS"
+
+echo ""
+echo "    FLS granted."
+echo ""
+
+# ---------------------------------------------------------------------------
+# Step 5: (Optional) Load seed data
 # ---------------------------------------------------------------------------
 if [ "$WITH_SEED_DATA" = true ]; then
-    echo ">>> Step 3: Loading seed data..."
-    echo "    Running the Anonymous Apex script that creates sample Accounts,"
-    echo "    Contacts, Opportunities, and Leads."
-    echo ""
+    echo ">>> Step 5: Loading seed data..."
 
-    # 'sf apex run' executes Anonymous Apex — think of it like running a
-    # one-off script against the database. No permanent code is deployed;
-    # it just runs the DML operations and exits.
     sf apex run \
         --file scripts/apex/seed-data.apex \
         --target-org "$SCRATCH_ALIAS"
@@ -119,34 +132,41 @@ if [ "$WITH_SEED_DATA" = true ]; then
 fi
 
 # ---------------------------------------------------------------------------
-# Step 4: Verify deployment
+# Step 6: Verify deployment
 # ---------------------------------------------------------------------------
-echo ">>> Step 4: Verifying deployment..."
+echo ">>> Step 6: Verifying deployment..."
 echo ""
 
-echo "--- Checking custom fields on Opportunity ---"
-# The Tooling API query below asks: "what custom fields exist on the Opportunity object?"
-# This is a REST API query, not a database query — it reads the org's metadata.
+echo "--- Custom fields on Opportunity ---"
 sf data query \
     --query "SELECT QualifiedApiName, DataType FROM FieldDefinition WHERE EntityDefinition.QualifiedApiName = 'Opportunity' AND QualifiedApiName LIKE '%__c'" \
     --use-tooling-api \
     --target-org "$SCRATCH_ALIAS" \
-    --result-format table
+    --result-format human
 
 echo ""
-echo "--- Checking roles ---"
+echo "--- Roles ---"
 sf data query \
     --query "SELECT Name, ParentRole.Name FROM UserRole WHERE Name IN ('VP of Sales', 'Sales Manager', 'SDR')" \
     --target-org "$SCRATCH_ALIAS" \
-    --result-format table
+    --result-format human
 
 echo ""
-echo "--- Checking active Flows ---"
+echo "--- Active Flows ---"
 sf data query \
     --query "SELECT FullName, ActiveVersionId FROM FlowDefinition WHERE DeveloperName = 'Lead_Conversion_Task_Creation'" \
     --use-tooling-api \
     --target-org "$SCRATCH_ALIAS" \
-    --result-format table
+    --result-format human
+
+if [ "$WITH_SEED_DATA" = true ]; then
+    echo ""
+    echo "--- Record counts ---"
+    sf data query --query "SELECT COUNT(Id) Accounts FROM Account" --target-org "$SCRATCH_ALIAS" --result-format human
+    sf data query --query "SELECT COUNT(Id) Contacts FROM Contact" --target-org "$SCRATCH_ALIAS" --result-format human
+    sf data query --query "SELECT COUNT(Id) Opportunities FROM Opportunity" --target-org "$SCRATCH_ALIAS" --result-format human
+    sf data query --query "SELECT COUNT(Id) Leads FROM Lead" --target-org "$SCRATCH_ALIAS" --result-format human
+fi
 
 echo ""
 echo "============================================"

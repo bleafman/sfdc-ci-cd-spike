@@ -1,23 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  OpportunityStage StandardValueSet
-  =================================
-  Defines the picklist values for the Opportunity "Stage" field. In Salesforce,
-  Opportunity stages drive the sales pipeline — each stage represents where a
-  deal is in the sales process.
-
-  Key concepts for non-Salesforce developers:
-  - "standardValue" entries define the allowed picklist options
-  - "forecastCategory" maps each stage to a revenue forecasting bucket:
-      Pipeline    = early stages, not yet in active forecast
-      BestCase    = likely to close but not committed
-      Forecast    = committed/expected revenue
-      Closed      = deal is done (won or lost)
-      Omitted     = excluded from forecast (e.g., Closed Lost)
-  - "probability" is the default win likelihood shown on Opportunity records
-  - "closed" and "won" flags mark terminal states for reporting and automation
-  - The order here determines the display order in the Salesforce UI
--->
 <StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <sorted>false</sorted>
     <standardValue>

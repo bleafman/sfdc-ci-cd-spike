@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Role: Sales Manager (middle of the sales hierarchy)
-  ===================================================
-  Reports to VP of Sales. Can see all records owned by SDRs below them.
-  The parentRole reference creates the hierarchy: VP_Sales → Sales_Manager → SDR
--->
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Sales_Manager</fullName>
-    <label>Sales Manager</label>
+    <caseAccessLevel>Edit</caseAccessLevel>
+    <contactAccessLevel>Edit</contactAccessLevel>
+    <description>Reports to VP Sales</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>Sales Manager</name>
+    <opportunityAccessLevel>Edit</opportunityAccessLevel>
     <parentRole>VP_Sales</parentRole>
-    <caseAccessLevel>ReadWrite</caseAccessLevel>
-    <contactAccessLevel>ReadWrite</contactAccessLevel>
-    <description>Mid-level sales management. Reports to VP of Sales. Can see all SDR-owned records.</description>
-    <mayForecastManagerShare>true</mayForecastManagerShare>
-    <opportunityAccessLevel>ReadWrite</opportunityAccessLevel>
 </Role>

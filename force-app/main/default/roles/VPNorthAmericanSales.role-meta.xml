@@ -2,8 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>Edit</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Top of sales hierarchy</description>
+    <description>VP, North American Sales</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>VP of Sales</name>
+    <name>VP, North American Sales</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    <parentRole>SVPSalesMarketing</parentRole>
 </Role>

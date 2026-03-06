@@ -1,32 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Flow: Lead Conversion — Auto-Create Discovery Call Task
-  =======================================================
-  This is a Record-Triggered Flow — Salesforce's primary declarative automation tool.
-  Think of Flows like event-driven workflows: "when X happens, do Y."
-
-  What this Flow does:
-  1. Triggers when a Lead record is updated
-  2. Checks if the Lead's "IsConverted" field just changed to true
-     (Lead conversion is a built-in Salesforce process that creates an
-      Account, Contact, and optionally an Opportunity from a Lead)
-  3. If converted, creates a Task record assigned to the Opportunity owner
-     with the subject "Schedule discovery call"
-
-  Flow anatomy for non-Salesforce developers:
-  - "processType: AutoLaunchedFlow" = runs in the background (no UI screens)
-  - "triggerType: RecordAfterSave" = fires after a record is saved to the database
-  - "recordTriggerType: Update" = specifically on record updates (not inserts)
-  - "start" element defines the trigger criteria and entry conditions
-  - "decisions" are if/else branch points
-  - "recordCreates" perform DML inserts
-  - Elements are connected via "connector" references (like a linked list of nodes)
-  - "processMetadataValues" store builder configuration
-
-  Why RecordAfterSave (not BeforeSave)?
-  We need the ConvertedOpportunityId to be populated, which only happens
-  AFTER the conversion transaction completes. BeforeSave wouldn't have it yet.
--->
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Lead_Conversion_Task_Creation</fullName>
     <label>Lead Conversion - Create Discovery Call Task</label>
@@ -36,14 +8,7 @@
     <processType>AutoLaunchedFlow</processType>
     <status>Active</status>
 
-    <!--
-      Trigger configuration:
-      This Flow fires on Lead record updates. The "start" element defines:
-      - Which object to watch (Lead)
-      - When to fire (after save, on update)
-      - Entry filter: only proceed if IsConverted changed to true
-    -->
-    <start>
+        <start>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <connector>
@@ -62,13 +27,7 @@
         <triggerType>RecordAfterSave</triggerType>
     </start>
 
-    <!--
-      Decision: Did the conversion create an Opportunity?
-      Lead conversion can optionally skip Opportunity creation, so we need
-      to check if ConvertedOpportunityId is populated before trying to
-      create a Task linked to the Opportunity.
-    -->
-    <decisions>
+        <decisions>
         <name>Check_If_Opportunity_Exists</name>
         <label>Check If Opportunity Exists</label>
         <locationX>176</locationX>
@@ -91,22 +50,7 @@
         </rules>
     </decisions>
 
-    <!--
-      Action: Create the Task record
-      In Salesforce, Tasks are the standard object for to-dos, follow-ups,
-      and action items. They can be linked to any record via WhatId (for
-      objects like Opportunity) or WhoId (for Contacts/Leads).
-
-      Field mappings:
-      - Subject: the task title shown in activity lists
-      - WhatId: links the Task to the converted Opportunity
-      - OwnerId: assigns the Task to the Opportunity owner
-      - Status: "Not Started" is the default open status
-      - Priority: "Normal" (vs. High or Low)
-      - ActivityDate: due date — set to 2 days from now
-      - Description: additional context for the task owner
-    -->
-    <recordCreates>
+        <recordCreates>
         <name>Create_Discovery_Call_Task</name>
         <label>Create Discovery Call Task</label>
         <locationX>264</locationX>

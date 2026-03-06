@@ -2,7 +2,23 @@
   "permissions": {
     "allow": [
       "Bash(sf version:*)",
-      "Bash(git:*)"
+      "Bash(sf project deploy:*)",
+      "Bash(sf project retrieve:*)",
+      "Bash(sf org create scratch:*)",
+      "Bash(sf org open:*)",
+      "Bash(sf org delete:*)",
+      "Bash(sf org list:*)",
+      "Bash(sf org display:*)",
+      "Bash(sf data query:*)",
+      "Bash(sf apex run:*)",
+      "Bash(sf data import:*)",
+      "Bash(git:*)",
+      "Bash(echo:*)",
+      "Bash(cat:*)",
+      "Bash(ls:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(grep:*)"
     ]
   }
 }

@@ -1,15 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Custom currency field on Opportunity.
-  Captures the expected total contract value, which may differ from the
-  Opportunity "Amount" field (Amount often represents annual or one-time value,
-  while this captures the full contract).
-
-  Key concepts:
-  - "type: Currency" renders as a currency input with the org's default currency
-  - "precision" = total digits allowed (including decimal), "scale" = decimal places
-  - precision 18, scale 2 = up to 9,999,999,999,999,999.99
--->
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Expected_Contract_Value__c</fullName>
     <label>Expected Contract Value</label>
@@ -19,5 +8,4 @@
     <precision>18</precision>
     <scale>2</scale>
     <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>true</trackHistory>
 </CustomField>

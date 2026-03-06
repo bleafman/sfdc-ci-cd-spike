@@ -1,27 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Profile: SDR (Sales Development Representative)
-  ================================================
-  Restricted profile for front-line sales reps who qualify leads.
-
-  SDR permissions:
-  - Read/Write on Leads and Contacts (their primary job)
-  - Read-only on Accounts (can see company info but not modify it)
-  - NO access to Opportunities (SDRs don't manage deals — they hand off to AEs)
-  - Can see custom fields on Opportunity in read-only mode (for context when
-    looking at related lists, but can't edit them)
-
-  This demonstrates RBAC-style access control: same data, different
-  permission levels based on job function.
--->
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>SDR</fullName>
-    <label>SDR</label>
-    <description>Profile for Sales Development Representatives. Read/write on Leads and Contacts, read-only on Accounts, no Opportunity access. SDRs qualify leads and hand off to closers.</description>
     <custom>true</custom>
     <userLicense>Salesforce</userLicense>
-
-    <!-- Accounts: read-only — SDRs can look up company info but not modify it -->
     <objectPermissions>
         <object>Account</object>
         <allowCreate>false</allowCreate>
@@ -31,8 +11,6 @@
         <modifyAllRecords>false</modifyAllRecords>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-
-    <!-- Contacts: full read/write — SDRs actively manage contact relationships -->
     <objectPermissions>
         <object>Contact</object>
         <allowCreate>true</allowCreate>
@@ -42,8 +20,6 @@
         <modifyAllRecords>false</modifyAllRecords>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-
-    <!-- Leads: full read/write — this is the SDR's primary workspace -->
     <objectPermissions>
         <object>Lead</object>
         <allowCreate>true</allowCreate>
@@ -53,14 +29,6 @@
         <modifyAllRecords>false</modifyAllRecords>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-
-    <!--
-      No Opportunity objectPermissions entry = no access to Opportunities.
-      In Salesforce, if an object isn't listed in the profile, the user
-      has zero access to it (unless granted by a permission set).
-    -->
-
-    <!-- Field-level security: read-only on custom Opp fields (visible in related lists) -->
     <fieldPermissions>
         <field>Opportunity.Deal_Source__c</field>
         <readable>true</readable>
