@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Admin_Only_Ownership_Change</fullName>
+    <active>true</active>
+    <description>Only System Administrators can change Account ownership. Prevents territory confusion and ensures proper handoff process is followed.</description>
+    <errorConditionFormula>AND(
+    ISCHANGED(OwnerId),
+    $Profile.Name &lt;&gt; &quot;System Administrator&quot;
+)</errorConditionFormula>
+    <errorDisplayField>OwnerId</errorDisplayField>
+    <errorMessage>Account ownership can only be changed by an administrator. Submit a territory reassignment request if this account needs to move.</errorMessage>
+</ValidationRule>

@@ -2,35 +2,51 @@
 
 Goal: Discover the shape of Salesforce metadata-as-code and CI/CD, find where the workflow breaks with real-world use cases.
 
-## Phase 1: Metadata-as-Code (current)
+## Phase 1: Metadata-as-Code [DONE]
 
 - [x] Install SF CLI, generate SFDX project
 - [x] Scenario 1: Opportunity stages (StandardValueSet)
 - [x] Scenario 2: Role hierarchy + profiles
 - [x] Scenario 3: Custom fields + validation rule
 - [x] Scenario 4: Lead conversion Flow
-- [x] Scenario 5: Round-trip deploy script
+- [x] Scenario 5: Round-trip deploy script — tested clean on fresh scratch org
 - [x] Seed data (Apex + JSON)
-- [x] Get a clean deploy to a scratch org
-- [x] Load and verify seed data
-- [ ] Verify each scenario works in the org UI
-- [ ] Test the full round-trip script on a fresh scratch org
-- [ ] Commit working state
+- [x] Verify each scenario works in org UI (including Lead conversion Flow)
+
+## Phase 1.5: Manual CI/CD Dry Run (current)
+
+Test the change→retrieve→commit→deploy-to-persistent-org workflow by hand before automating.
+
+### Feature work (vehicle for testing the workflow)
+- [ ] Closed Won Opportunities are locked — only admins can edit/change ownership
+- [ ] SDRs can reassign Opportunity ownership only in Prospecting/Discovery
+- [ ] Only admins can change Account ownership
+- [ ] Create test users (SDR, Sales Manager) to verify permissions work
+- [ ] Deploy to Dev org (persistent) — simulates "merge to main → deploy to staging"
+
+### AppExchange experiment
+- [ ] Install a real AppExchange package into scratch org
+- [ ] Retrieve metadata to see what it added
+- [ ] Figure out the "commit back" process — what goes in the repo vs. what gets ignored
+- [ ] Document the runbook for "we installed an app, now what"
+
+### Versioning / release strategy
+- [ ] Decide on tagging approach (git tags with semver? GitHub releases?)
+- [ ] Tag the current working state as v0.1.0
 
 ## Phase 2: CI/CD Pipeline
 
-- [ ] GitHub Actions: deploy on PR merge
-- [ ] GitHub Actions: validate on PR open (deploy --dry-run)
-- [ ] Scratch org pooling or on-demand creation in CI
-- [ ] Secret management for SF auth in CI
+- [ ] GitHub Actions: validate on PR open (deploy --check-only / dry-run)
+- [ ] GitHub Actions: deploy on PR merge to main
+- [ ] Auth strategy for CI (JWT bearer flow vs. SFDX auth URL)
+- [ ] Scratch org creation in CI for validation
+- [ ] Secret management for SF auth
 
-## Open Questions / To Explore
+## Open Questions
 
-- [ ] What happens when you install an AppExchange package — what metadata does it add, and does it pollute the repo on retrieve?
-- [ ] How do you handle metadata that shouldn't be in source control (org-specific settings, user records, etc.)?
-- [ ] XML comments not supported by SF CLI metadata converter — what's the documentation story for metadata files? (research in progress)
 - [ ] Profile metadata explosion — real orgs have massive profile files. How do teams manage this?
 - [ ] Flow metadata is verbose and hard to diff — what do teams actually do for code review on Flows?
 - [ ] Conflict resolution when two people modify the same metadata type
-- [ ] What's the metadata impact of installing plugins/apps from AppExchange on the CI/CD flow?
-- [ ] `<description>` element limitations — what's the real documentation strategy for Salesforce metadata? (research in progress)
+- [ ] Metadata documentation gap — no in-file comments, description fields are limited
+- [ ] Retrieve pulls ALL metadata of a type — need a strategy for what to include vs. ignore
+- [ ] Standard object fields bloat the repo — every retrieve pulls dozens of standard field XMLs

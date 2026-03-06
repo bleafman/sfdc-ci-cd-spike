@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Closed_Won_No_Ownership_Change</fullName>
+    <active>true</active>
+    <description>Prevents ownership changes on Closed Won Opportunities unless the user is a System Administrator. Protects revenue attribution and commission integrity.</description>
+    <errorConditionFormula>AND(
+    ISPICKVAL(StageName, &quot;Closed Won&quot;),
+    ISCHANGED(OwnerId),
+    $Profile.Name &lt;&gt; &quot;System Administrator&quot;
+)</errorConditionFormula>
+    <errorDisplayField>OwnerId</errorDisplayField>
+    <errorMessage>Ownership of Closed Won Opportunities cannot be changed. Contact your admin if a reassignment is needed.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SDR_Ownership_Early_Stages_Only</fullName>
+    <active>true</active>
+    <description>SDRs can only change Opportunity ownership when the deal is in Prospecting or Discovery. Once a deal moves to Proposal or beyond, only Sales Managers and Admins can reassign.</description>
+    <errorConditionFormula>AND(
+    ISCHANGED(OwnerId),
+    $Profile.Name = &quot;SDR&quot;,
+    NOT(
+        OR(
+            ISPICKVAL(StageName, &quot;Prospecting&quot;),
+            ISPICKVAL(StageName, &quot;Discovery&quot;)
+        )
+    )
+)</errorConditionFormula>
+    <errorDisplayField>OwnerId</errorDisplayField>
+    <errorMessage>SDRs can only reassign Opportunities in Prospecting or Discovery stages. For later-stage reassignment, ask your Sales Manager.</errorMessage>
+</ValidationRule>

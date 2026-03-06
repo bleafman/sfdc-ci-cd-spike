@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Closed_Won_No_Edit</fullName>
+    <active>true</active>
+    <description>Prevents edits to key fields on Closed Won Opportunities unless the user is a System Administrator. Amount, Stage, Close Date, and Deal Source are locked after close.</description>
+    <errorConditionFormula>AND(
+    ISPICKVAL(StageName, &quot;Closed Won&quot;),
+    OR(
+        ISCHANGED(Amount),
+        ISCHANGED(CloseDate),
+        ISCHANGED(Deal_Source__c)
+    ),
+    $Profile.Name &lt;&gt; &quot;System Administrator&quot;
+)</errorConditionFormula>
+    <errorMessage>Closed Won Opportunities are locked. Amount, Close Date, and Deal Source cannot be modified. Contact your admin if a correction is needed.</errorMessage>
+</ValidationRule>
