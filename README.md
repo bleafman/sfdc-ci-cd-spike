@@ -4,6 +4,8 @@ A spike exploring whether a Salesforce org's configuration can be fully managed 
 
 **The short version:** For pure Salesforce, yes — you can express your entire org config as code and reconstitute it from scratch. But the real-world picture is more complicated, and the gaps are significant enough that you'd be building a lot of tooling yourself.
 
+**The practical takeaway:** If what you care about is disaster recovery and change tracking, that's very doable — a recurring GitHub Action that hits the metadata API every 15 minutes, checks for diffs, and auto-commits new snapshots would give you a versioned history of your org's configuration with relatively little effort. But if you want the full Terraform-style workflow — declare what you want, deploy it, get a preview of what will change — that's a much harder problem. You'd need everyone involved in administering Salesforce to be working through code (or through an AI coding agent), and a lot of plumbing to make the whole flow safe and predictable.
+
 ## What We Found
 
 ### What works
