@@ -22,7 +22,7 @@ A spike exploring whether a Salesforce org's configuration can be fully managed 
 
 - **The realistic release flow isn't CI/CD.** Based on what we found, the practical approach would be: manage config as code in feature branches → create a sandbox (which copies production *including data*) → apply your changes to the sandbox → test → promote to production via Salesforce's UI. That's not continuous deployment — it's more like a gated, sandbox-based release process. Full CI/CD with scratch orgs is possible but you'd be wiring up a lot of the plumbing yourself.
 
-- **Reconciliation is an unsolved problem.** If someone makes a change directly in production (ClickOps), there's no built-in way to detect it, diff it against your repo, and reconcile. Tools like Gearset and Copado exist specifically to fill this gap, but they're of course rediculously expensive and also clickops, which tells you something about how well Salesforce handles it natively.
+- **Reconciliation is an unsolved problem.** If someone makes a change directly in production (ClickOps), there's no built-in way to detect it, diff it against your repo, and reconcile. Tools like Gearset and Copado exist specifically to fill this gap, but they're of course ridiculously expensive and also clickops, which tells you something about how well Salesforce handles it natively.
 
 ## What This Repo Contains
 
