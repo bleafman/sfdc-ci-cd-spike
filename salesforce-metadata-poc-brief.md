@@ -34,7 +34,7 @@ Salesforce configuration is expressed through:
 
 The raw metadata is XML — structured and complete, but not always pleasant to read. Simple things (stages, fields, picklists) are quite readable. Complex things (Flows, profiles with hundreds of field permissions) are verbose and hard to scan.
 
-However, the metadata is highly **machine-legible**. An AI tool (Claude, etc.) can parse the XML and answer questions like "what permissions does the SDR profile have?" or "what validation rules exist on Opportunity?" — which is the core use case the CEO cares about.
+However, the metadata is highly **machine-legible**. An AI tool (Claude, etc.) can parse the XML and answer questions like "what permissions does the SDR profile have?" or "what validation rules exist on Opportunity?" — which is a key benefit of the metadata-as-code approach.
 
 A future enhancement (out of scope for this POC) would be a generated documentation layer — a script or AI-powered tool that reads the metadata repo and produces human-readable summaries of the sales process, permission model, automation rules, etc. Note this as a possibility but don't build it here.
 

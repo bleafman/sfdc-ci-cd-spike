@@ -13,26 +13,32 @@ Goal: Discover the shape of Salesforce metadata-as-code and CI/CD, find where th
 - [x] Seed data (Apex + JSON)
 - [x] Verify each scenario works in org UI (including Lead conversion Flow)
 
-## Phase 1.5: Manual CI/CD Dry Run (current)
+## Phase 1.5: Manual CI/CD Dry Run [IN PROGRESS]
 
-Test the change→retrieve→commit→deploy-to-persistent-org workflow by hand before automating.
+Test the change->retrieve->commit->deploy-to-persistent-org workflow by hand before automating.
 
-### Feature work (vehicle for testing the workflow)
-- [ ] Closed Won Opportunities are locked — only admins can edit/change ownership
-- [ ] SDRs can reassign Opportunity ownership only in Prospecting/Discovery
-- [ ] Only admins can change Account ownership
-- [ ] Create test users (SDR, Sales Manager) to verify permissions work
-- [ ] Deploy to Dev org (persistent) — simulates "merge to main → deploy to staging"
+### Ownership restriction rules [DONE]
+- [x] Closed Won Opportunities are locked — only admins can edit/change ownership
+- [x] SDRs can reassign Opportunity ownership only in Prospecting/Discovery
+- [x] Only admins can change Account ownership
+- [x] Apex tests for ownership rules (with MIXED_DML_OPERATION workaround)
 
-### AppExchange experiment
-- [ ] Install a real AppExchange package into scratch org
-- [ ] Retrieve metadata to see what it added
-- [ ] Figure out the "commit back" process — what goes in the repo vs. what gets ignored
+### AppExchange / managed packages [DONE]
+- [x] Install DLRS into scratch org
+- [x] Retrieve metadata to see what it added
+- [x] Discovered: managed package metadata is retrievable but NOT deployable
+- [x] Created `dependencies.json` manifest pattern (like package.json for SF packages)
+- [x] Updated setup script to install packages from manifest before deploying source
+- [x] Added `.forceignore` patterns for managed package namespaces
+- [x] Cleaned up retrieved DLRS metadata from repo
+
+### Versioning / release strategy [DONE]
+- [x] Tag current working state as v0.1.0
+
+### Remaining Phase 1.5 work
+- [ ] Create test users (SDR, Sales Manager) to verify permissions work end-to-end
+- [ ] Deploy to Dev org (persistent) — simulates "merge to main -> deploy to staging"
 - [ ] Document the runbook for "we installed an app, now what"
-
-### Versioning / release strategy
-- [ ] Decide on tagging approach (git tags with semver? GitHub releases?)
-- [ ] Tag the current working state as v0.1.0
 
 ## Phase 2: CI/CD Pipeline
 
@@ -41,6 +47,7 @@ Test the change→retrieve→commit→deploy-to-persistent-org workflow by hand 
 - [ ] Auth strategy for CI (JWT bearer flow vs. SFDX auth URL)
 - [ ] Scratch org creation in CI for validation
 - [ ] Secret management for SF auth
+- [ ] Sandbox-specific setup script variant
 
 ## Open Questions
 
@@ -50,3 +57,4 @@ Test the change→retrieve→commit→deploy-to-persistent-org workflow by hand 
 - [ ] Metadata documentation gap — no in-file comments, description fields are limited
 - [ ] Retrieve pulls ALL metadata of a type — need a strategy for what to include vs. ignore
 - [ ] Standard object fields bloat the repo — every retrieve pulls dozens of standard field XMLs
+- [ ] How to handle package version upgrades — do you just change the versionId in dependencies.json?

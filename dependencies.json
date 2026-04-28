@@ -1,0 +1,11 @@
+{
+  "packages": [
+    {
+      "name": "DLRS",
+      "namespace": "dlrs",
+      "versionId": "04tKA000000cBQWYA2",
+      "required": true,
+      "description": "Declarative Lookup Rollup Summaries — rollup fields across lookup relationships"
+    }
+  ]
+}

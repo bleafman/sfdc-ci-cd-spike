@@ -10,3 +10,8 @@ package.xml
 
 # LWC Jest
 **/__tests__/**
+
+# Managed packages — these are installed via `sf package install`, not source deploy.
+# Package dependencies are declared in dependencies.json at the project root.
+# See LEARNINGS.md for details on why managed package metadata can't be deployed.
+**/dlrs__*
