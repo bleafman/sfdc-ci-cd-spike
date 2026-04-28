@@ -22,7 +22,7 @@ A spike exploring whether a Salesforce org's configuration can be fully managed 
 
 - **The realistic release flow isn't CI/CD.** Based on what we found, the practical approach would be: manage config as code in feature branches → create a sandbox (which copies production *including data*) → apply your changes to the sandbox → test → promote to production via Salesforce's UI. That's not continuous deployment — it's more like a gated, sandbox-based release process. Full CI/CD with scratch orgs is possible but you'd be wiring up a lot of the plumbing yourself.
 
-- **Reconciliation is an unsolved problem.** If someone makes a change directly in production (ClickOps), there's no built-in way to detect it, diff it against your repo, and reconcile. Tools like Gearset and Copado exist specifically to fill this gap, but they're of course ridiculously expensive and also clickops, which tells you something about how well Salesforce handles it natively.
+- **Reconciliation is an unsolved problem.** If someone makes a change directly in production (ClickOps), there's no built-in way to detect it, diff it against your repo, and reconcile. There are entire companies built around filling this gap, but they're ridiculously expensive and also clickops — which tells you something about how well Salesforce handles it natively. See [On Drift Detection](#on-drift-detection) below for how you could plausibly approach this and what the challenges are.
 
 ## What This Repo Contains
 
@@ -124,7 +124,7 @@ If you continued down this path, the obvious next step is detecting when someone
 - A GitHub Action on a cron schedule that authenticates to the target org, runs `sf project retrieve start`, and diffs the result against `main`
 - If there's a diff, open a PR or issue with the changes for review
 
-In practice this is clunky. Salesforce metadata is verbose XML with strict element ordering, so "reconciliation" means resolving merge conflicts in XML every time someone clicks a button in Setup. An LLM like Claude could probably handle the conflict resolution with enough repo context, but it's not clean — you're essentially building a bespoke merge tool for a format that wasn't designed for diffing. Tools like Gearset and Copado exist because this problem is genuinely hard to solve well with native Salesforce tooling alone.
+In practice this is clunky. Salesforce metadata is verbose XML with strict element ordering, so "reconciliation" means resolving merge conflicts in XML every time someone clicks a button in Setup. An LLM like Claude could probably handle the conflict resolution with enough repo context, but it's not clean — you're essentially building a bespoke merge tool for a format that wasn't designed for diffing. There are entire companies built around solving just this problem — expensive, clickops-heavy tools that exist solely because Salesforce doesn't handle it natively. That tells you something about the size of the gap.
 
 ## See Also
 
